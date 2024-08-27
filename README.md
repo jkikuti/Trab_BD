@@ -19,6 +19,7 @@ Este projeto visa desenvolver um marketplace dedicado à venda de action figures
 ## Ficha Técnica de uma Action Figure
 
 - **Marca**: Original Beast Kingdom
+- **Personagem**: Alice
 - **Material**: Plástico/PVC/Vinil (pode ser feito de mais de um material)
 - **Tamanho**: 10 cm
 - **Universo**: Alice no País das Maravilhas
