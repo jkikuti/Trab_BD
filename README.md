@@ -10,7 +10,7 @@ Este projeto visa desenvolver um marketplace dedicado à venda de action figures
 - **Cadastro de Clientes**: Clientes poderão se registrar, fornecendo informações como nome, e-mail e endereço.
 - **Gerenciamento de Compras**: Permite aos clientes comprar action figures, com registros de transações no banco de dados.
 - **Buscas e Filtragens**: Clientes poderão buscar action figures usando filtros como:
-  - **Tema**: Filmes, Seriados, Games, Animes, Desenhos, Diversos (Música, Personalidades, Esportes)
+  - **Categoria**: Filmes, Seriados, Games, Animes, Desenhos, Diversos (Música, Personalidades, Esportes)
   - **Personagens**: Nome do personagem
   - **Universo**: Nome da franquia
   - **Fabricante**: Nome do fabricante
