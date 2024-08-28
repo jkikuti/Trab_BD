@@ -2,7 +2,7 @@
 
 ## Descrição do Projeto
 
-Este projeto visa desenvolver um marketplace dedicado à venda de action figures. A plataforma permitirá aos usuários explorar uma vasta coleção de figuras de ação, categorizadas em filmes, super-heróis, seriados, games, personalidades, esportes, animes, desenhos e música. O sistema será desenvolvido utilizando a arquitetura MVC (Model-View-Controller), com uma API REST para comunicação e PostgreSQL para armazenamento dos dados.
+Este projeto visa desenvolver um marketplace dedicado à venda de action figures. A plataforma permitirá aos usuários explorar uma vasta coleção de figuras de ação, categorizadas em filmes, seriados, games, animes, desenhos e diversos temas como música, personalidades e esportes. O sistema será desenvolvido utilizando a arquitetura MVC (Model-View-Controller), com uma API REST para comunicação e PostgreSQL para armazenamento dos dados.
 
 ## Funcionalidades Principais
 
@@ -10,15 +10,15 @@ Este projeto visa desenvolver um marketplace dedicado à venda de action figures
 - **Cadastro de Clientes**: Clientes poderão se registrar, fornecendo informações como nome, e-mail e endereço.
 - **Gerenciamento de Compras**: Permite aos clientes comprar action figures, com registros de transações no banco de dados.
 - **Buscas e Filtragens**: Clientes poderão buscar action figures usando filtros como:
-  - **Tema**: Filmes, Super-Heróis, Seriados, Games, Personalidades, Esportes, Animes, Desenhos, Música
-  - **Personagens**: Nomes dos personagens
-  - **Universo**: Nomes das franquias
-  - **Marca**: Nomes das marcas
+  - **Tema**: Filmes, Seriados, Games, Animes, Desenhos, Diversos (Música, Personalidades, Esportes)
+  - **Personagens**: Nome do personagem
+  - **Universo**: Nome da franquia
+  - **Fabricante**: Nome do fabricante
 - **Carrinho de Compras**: Implementação de um carrinho de compras para adição de itens antes da finalização da compra.
 
 ## Ficha Técnica de uma Action Figure
 
-- **Marca**: Original Beast Kingdom
+- **Fabricante**: Original Beast Kingdom
 - **Personagem**: Alice
 - **Material**: Plástico/PVC/Vinil (pode ser feito de mais de um material)
 - **Tamanho**: 10 cm
