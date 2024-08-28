@@ -23,7 +23,7 @@ Este projeto visa desenvolver um marketplace dedicado à venda de action figures
 - **Material**: Plástico/PVC/Vinil (pode ser feito de mais de um material)
 - **Tamanho**: 10 cm
 - **Universo**: Alice no País das Maravilhas
-- **Tema**: Desenhos
+- **Categoria**: Desenhos
 
 ## Relatórios
 
