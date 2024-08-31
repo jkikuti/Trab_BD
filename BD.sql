@@ -9,7 +9,6 @@
 // item_pedido n=tem_action_figure-1 action_figure
 // action_figure 1=tem_material-n materiais
 // action_figure 1-tem_imagem=n imagens
-// a partir dessas informações gerar chave estrangeira
 
 CREATE SCHEMA loja;
 
