@@ -2,16 +2,27 @@
 -- Banco de dados loja --
 -------------------------
 
-// relações
-// cliente 1-tem_endereco=n enderecos
-// pedido 1=tem_cliente-n clientes
-// pedido n-tem_action_figure-n action_figures
+-- relações
+-- cliente 1-tem_endereco=n enderecos
+-- pedido 1=tem_cliente-n clientes
+-- pedido n-tem_action_figure-n action_figures
 
-CREATE SCHEMA loja;
+-- Criar o esquema
+CREATE SCHEMA IF NOT EXISTS loja;
 
-CREATE TABLE loja.cliente {
-    id INT AUTO_INCREMENT,
-    cpf INT(11),
+-- Criar a tabela pedido
+CREATE TABLE loja.pedido (
+    id INT SERIAL,
+    valor_total DECIMAL(7,2),
+    data_pedido TIMESTAMP,
+
+    CONSTRAINT pk_pedido PRIMARY KEY(id),
+);
+
+-- Criar a tabela cliente
+CREATE TABLE loja.cliente (
+    id INT SERIAL,
+    cpf CHAR(14) NOT NULL,
     nome VARCHAR(200),
     email VARCHAR(200) NOT NULL,
 
@@ -22,10 +33,11 @@ CREATE TABLE loja.cliente {
     CONSTRAINT uk_cliente_email UNIQUE(email),
 
     CONSTRAINT fk_pedido_cliente FOREIGN KEY(id_pedido) REFERENCES pedido(id),
-};
+);
 
+-- Criar a tabela endereco
 CREATE TABLE loja.endereco {
-    id INT AUTO_INCREMENT,
+    id INT SERIAL,
     end_num INT,
     estado CHAR(2),
     cidade VARCHAR(200),
@@ -41,27 +53,9 @@ CREATE TABLE loja.endereco {
     CONSTRAINT fk_cliente_endereco FOREIGN KEY(id_cliente) REFERENCES cliente(id),
 };
 
-CREATE TABLE loja.pedido {
-    id INT AUTO_INCREMENT,
-    valor_total DECIMAL(7,2),
-    data_pedido TIMESTAMP,
-
-    CONSTRAINT pk_pedido PRIMARY KEY(id),
-};
-
-CREATE TABLE loja.pedido_tem_action_figure {
-    id_pedido INT,
-    id_action_figure INT,
-    pedido_quantidade INT,
-
-    CONSTRAINT pk_pedido_tem_action_figure PRIMARY KEY(id_pedido, id_action_figure),
-
-    CONSTRAINT fk_id_pedido FOREIGN KEY(id_pedido) REFERENCES pedido(id),
-    CONSTRAINT fk_id_action_figure FOREIGN KEY(id_action_figure) REFERENCES action_figure(id),
-};
-
-CREATE TABLE loja.action_figure {
-    id INT AUTO_INCREMENT,
+-- Criar a tabela action_figure
+CREATE TABLE loja.action_figure (
+    id INT SERIAL,
     personagem VARCHAR(200),
     universo VARCHAR(200),
     fabricante VARCHAR(200),
@@ -72,16 +66,29 @@ CREATE TABLE loja.action_figure {
     estoque INT,
 
     CONSTRAINT pk_action_figure PRIMARY KEY(id),
-};
+);
 
+-- Criar a tabela pedido_tem_action_figure
+CREATE TABLE loja.pedido_tem_action_figure (
+    id_pedido INT,
+    id_action_figure INT,
+    pedido_quantidade INT,
 
+    CONSTRAINT pk_pedido_tem_action_figure PRIMARY KEY(id_pedido, id_action_figure),
+
+    CONSTRAINT fk_id_pedido FOREIGN KEY(id_pedido) REFERENCES pedido(id),
+    CONSTRAINT fk_id_action_figure FOREIGN KEY(id_action_figure) REFERENCES action_figure(id),
+);
+
+-- Criar a tabela material
 CREATE TABLE loja.material (
-    id INT AUTO_INCREMENT,
+    id INT SERIAL,
     tipo_material VARCHAR(200),
 
     CONSTRAINT pk_material PRIMARY KEY(id)
 );
 
+-- Criar a tabela action_figure_material
 CREATE TABLE loja.action_figure_material (
     id_action_figure INT,
     id_material INT,
@@ -89,20 +96,26 @@ CREATE TABLE loja.action_figure_material (
     CONSTRAINT pk_action_figure_material PRIMARY KEY(id_action_figure, id_material),
 
     CONSTRAINT fk_id_action_figure FOREIGN KEY(id_action_figure) REFERENCES loja.action_figure(id),
-    CONSTRAINT fk_id_material FOREIGN KEY(id_material) REFERENCES loja.material(id)
+    CONSTRAINT fk_id_material FOREIGN KEY(id_material) REFERENCES loja.material(id),
 );
 
+-- Criar a tabela imagem
 CREATE TABLE loja.imagem (
-    id INT AUTO_INCREMENT,
+    id INT SERIAL,
     imagem_url VARCHAR(200),
 
     id_action_figure INT,
 
-    CONSTRAINT pk_imagem PRIMARY KEY(id)
+    CONSTRAINT pk_imagem PRIMARY KEY(id),
 
-    CONSTRAINT fk_id_action_figure FOREIGN KEY(id_action_figure) REFERENCES loja.action_figure(id)
+    CONSTRAINT fk_id_action_figure FOREIGN KEY(id_action_figure) REFERENCES loja.action_figure(id),
 );
 
+--------------
+-- Carrinho --
+--------------
+
+-- Criar a tabela spring_session
 CREATE TABLE loja.spring_session (
   id_primario CHAR(36) NOT NULL,
   id_sessao CHAR(36) NOT NULL,
@@ -114,10 +127,12 @@ CREATE TABLE loja.spring_session (
   CONSTRAINT pk_spring_session PRIMARY KEY (id_primario)
 );
 
+-- Criar índices para spring_session
 CREATE UNIQUE INDEX spring_session_ix1 ON loja.spring_session (id_sessao);
 CREATE INDEX spring_session_ix2 ON loja.spring_session (tempo_expiracao);
 CREATE INDEX spring_session_ix3 ON loja.spring_session (nome_principal);
 
+-- Criar a tabela spring_session_atributos
 CREATE TABLE loja.spring_session_atributos (
   id_sessao_primaria CHAR(36) NOT NULL,
   nome_atributos VARCHAR(200) NOT NULL,

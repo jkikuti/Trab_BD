@@ -18,32 +18,48 @@ Este projeto visa desenvolver um marketplace dedicado à venda de action figures
 
 ## Ficha Técnica de uma Action Figure
 
-- **Fabricante**: Original Beast Kingdom
-- **Personagem**: Alice
-- **Material**: Plástico/PVC/Vinil (pode ser feito de mais de um material)
-- **Tamanho**: 10 cm
-- **Universo**: Alice no País das Maravilhas
-- **Categoria**: Desenhos
+- **id**: 8,
+- **personagem**: "Shiro",
+- **universo**: "No Game No Life",
+- **fabricante**: "Good Smile Company",
+- **tamanho**: 12,
+- **preco**: 49.99,
+- **descricao**: "Action figure do personagem Shiro da série No Game No Life",
+- **categoria**: "Anime",
+- **estoque**: 5,
+- **materiais**: ["Plástico"],
+- **imagens**: ["https://example.com/shiro1.jpg", "https://example.com/shiro2.jpg"]
 
 ## Relatórios
 
 ### Relatório de Vendas por Período
 - **Descrição**: Total de vendas realizadas em um determinado período, permitindo análise do desempenho da loja.
 - **Dados Incluídos**: Data da venda, título da action figure, quantidade vendida, receita gerada.
-- **Consultas SQL Utilizadas**: Agregações (SUM), agrupamentos (GROUP BY), ordenações (ORDER BY).
+- **Consultas SQL Utilizadas**:
+  - **Agregações**: `SUM` para calcular a receita gerada.
+  - **Agrupamentos**: Agrupamento por data da venda e título da action figure.
+  - **Ordenações**: Ordenação por data da venda e título da action figure.
 
 ### Relatório de Action Figures Mais Vendidas
-- **Descrição**: Action figures mais vendidas em um período específico.
-- **Dados Incluídos**: Título da action figure, total de vendas.
-- **Consultas SQL Utilizadas**: Agregações (SUM), agrupamentos (GROUP BY), ordenações (ORDER BY).
+- **Descrição**: Lista das action figures mais vendidas em um período específico.
+- **Dados Incluídos**: Título da action figure, total de vendas (quantidade vendida).
+- **Consultas SQL Utilizadas**:
+  - **Agregações**: `SUM` para calcular o total de vendas por action figure.
+  - **Agrupamentos**: Agrupamento pelo título da action figure.
+  - **Ordenações**: Ordenação por total de vendas em ordem decrescente.
 
 ### Relatório de Receitas
 - **Descrição**: Receita total gerada por vendas em diferentes períodos.
-- **Dados Incluídos**: Receita total por período.
-- **Consultas SQL Utilizadas**: Agregações (SUM), agrupamentos (GROUP BY), ordenações (ORDER BY).
+- **Dados Incluídos**: Receita total por período (como mensal ou trimestral).
+- **Consultas SQL Utilizadas**:
+  - **Agregações**: `SUM` para calcular a receita total.
+  - **Agrupamentos**: Agrupamento por período (por exemplo, mês).
+  - **Ordenações**: Ordenação por período.
+
 
 ## Tecnologias Utilizadas
 
+- **React**: Biblioteca JavaScript para a criação de interfaces de usuário.
 - **Java EE**: Stack principal para o desenvolvimento do backend.
 - **PostgreSQL**: Banco de dados relacional para armazenar informações da loja, action figures, clientes e transações.
 - **Spring Framework**: Facilita a criação de APIs REST e a organização do código.
