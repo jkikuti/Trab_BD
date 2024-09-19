@@ -1,8 +1,7 @@
 -- Relatório de Receitas
 SELECT 
     DATE_TRUNC('month', p.data_pedido::timestamp AT TIME ZONE 'UTC') AS periodo,
-    SUM(ptaf.pedido_quantidade * af.preco) AS receita_total
-FROM 
+    SUM(ptaf.pedido_quantidade * ptaf.valor_unitario) AS receita_total
     loja.pedido p
 JOIN 
     loja.pedido_tem_action_figure ptaf ON p.id = ptaf.id_pedido
@@ -39,7 +38,7 @@ SELECT
     p.data_pedido::timestamp AT TIME ZONE 'UTC' AS data_venda,
     af.personagem AS titulo_action_figure,
     ptaf.pedido_quantidade AS quantidade_vendida,
-    (ptaf.pedido_quantidade * af.preco) AS receita_gerada
+    (ptaf.pedido_quantidade * ptaf.valor_unitario) AS receita_gerada
 FROM 
     loja.pedido p
 JOIN 
