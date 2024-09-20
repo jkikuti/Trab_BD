@@ -1,12 +1,12 @@
 package org.example.api.repository;
 
 import org.example.api.model.Cliente;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -27,23 +27,28 @@ public class ClienteRepository {
 
     public Cliente findById(Integer id) {
         String sql = "SELECT id, cpf, nome, email FROM loja.cliente WHERE id = ?";
-        return jdbcTemplate.queryForObject(sql, new ClienteRowMapper(), id);
+        try {
+            return jdbcTemplate.queryForObject(sql, new ClienteRowMapper(), id);
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
     }
 
+    @Transactional
     public Cliente save(Cliente cliente) {
         String sql = "INSERT INTO loja.cliente (cpf, nome, email) VALUES (?, ?, ?) RETURNING id";
-
-        Integer generatedId = jdbcTemplate.queryForObject(sql, new Object[] { cliente.getCpf(), cliente.getNome(), cliente.getEmail() }, Integer.class);
-
+        Integer generatedId = jdbcTemplate.queryForObject(sql, new Object[]{cliente.getCpf(), cliente.getNome(), cliente.getEmail()}, Integer.class);
         return findById(generatedId);
     }
 
+    @Transactional
     public Cliente update(Integer id, Cliente cliente) {
         String sql = "UPDATE loja.cliente SET cpf = ?, nome = ?, email = ? WHERE id = ?";
         jdbcTemplate.update(sql, cliente.getCpf(), cliente.getNome(), cliente.getEmail(), id);
         return findById(id);
     }
 
+    @Transactional
     public void delete(Integer id) {
         String sql = "DELETE FROM loja.cliente WHERE id = ?";
         jdbcTemplate.update(sql, id);
