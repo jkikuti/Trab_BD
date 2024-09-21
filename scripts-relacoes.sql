@@ -139,3 +139,29 @@ GROUP BY
     af.id, af.personagem, af.universo, af.tamanho, af.preco, af.categoria, af.estoque
 ORDER BY 
     af.id;
+
+-- Script atualizado para visualizar a relação completa entre estado, cidade, bairro, logradouro, tipo_logradouro, numero, complemento e cep
+SELECT 
+    est.sigla_estado AS estado_sigla,
+    ci.nome AS cidade_nome,
+    b.nome AS bairro_nome,
+    l.tipo AS logradouro_tipo,
+    l.nome AS logradouro_nome,
+    cep.cep AS cep,
+    e.numero AS endereco_numero,
+    e.complemento AS endereco_complemento
+FROM 
+    loja.estado est
+JOIN 
+    loja.cidade ci ON est.id = ci.id_estado
+JOIN 
+    loja.bairro b ON ci.id = b.id_cidade
+JOIN 
+    loja.logradouro l ON ci.id = l.id_cidade
+JOIN 
+    loja.cep_end cep ON l.id = cep.id_logradouro AND b.id = cep.id_bairro
+JOIN 
+    loja.endereco e ON cep.id = e.id_cep
+ORDER BY 
+    est.sigla_estado, ci.nome, b.nome, l.nome, cep.cep, e.numero;
+
