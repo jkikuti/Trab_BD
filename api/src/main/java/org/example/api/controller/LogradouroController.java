@@ -21,11 +21,13 @@ public class LogradouroController {
         this.logradouroRepository = logradouroRepository;
     }
 
+    // Listar todos os logradouros
     @GetMapping
     public ResponseEntity<List<Logradouro>> getAll() {
         return ResponseEntity.ok(logradouroRepository.findAll());
     }
 
+    // Buscar logradouro por ID
     @GetMapping("/{id}")
     public ResponseEntity<Logradouro> getById(@PathVariable Integer id) {
         Logradouro logradouro = logradouroRepository.findById(id);
@@ -35,18 +37,21 @@ public class LogradouroController {
         return ResponseEntity.ok(logradouro);
     }
 
+    // Criar logradouro
     @PostMapping
     public ResponseEntity<Logradouro> create(@RequestBody Logradouro logradouro) {
         Logradouro novoLogradouro = logradouroRepository.save(logradouro);
         return ResponseEntity.status(HttpStatus.CREATED).body(novoLogradouro);
     }
 
+    // Atualizar logradouro por ID
     @PutMapping("/{id}")
     public ResponseEntity<Logradouro> update(@PathVariable Integer id, @RequestBody Logradouro logradouro) {
         Logradouro logradouroAtualizado = logradouroRepository.update(id, logradouro);
         return ResponseEntity.ok(logradouroAtualizado);
     }
 
+    // Deletar logradouro por ID
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Integer id) {
         logradouroRepository.delete(id);

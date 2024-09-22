@@ -60,7 +60,7 @@
     "cidade": "Londrina",
     "cep": "86065-400",
     "logradouro": "Rua Serra do Maracju",
-    "tipoLogradouro": "Rua",
+    "tipoLogradouro": "Avenida",
     "numero": 469,
     "complemento": "Casa",
     "bairro": "Bandeirantes"
@@ -102,3 +102,42 @@
 ## Desassociar cliente a um endereço
 -- **Method:** DELETE
 -- **URL:** http://localhost:8080/cliente-endereco/cliente/{idCliente}/endereco/{idEndereco}
+
+# Método Fabricante
+
+## Visualisação de todos os fabricantes
+-- **Method:** GET
+-- **URL:** http://localhost:8080/fabricante
+
+## Visualisação de um fabricante
+-- **Method:** GET
+-- **URL:** http://localhost:8080/fabricante/{idFabricante}
+
+## Cadastro de um fabricante
+-- **Method:** POST
+-- **URL:** http://localhost:8080/fabricante
+-- **Body:** 
+
+```json
+{
+    "nomeFabricante": "Kikuti Company"
+}
+```
+
+## Atualização de um fabricante
+-- **Method:** PUT
+-- **URL:** http://localhost:8080/fabricante/{idFabricante}
+-- **Body:** 
+
+```json
+{
+    "nomeFabricante": "Kikuti Company LTDA"
+}
+```
+
+## Exclusão de um fabricante
+-- **Method:** DELETE
+-- **URL:** http://localhost:8080/fabricante/{idFabricante}
+
+
+

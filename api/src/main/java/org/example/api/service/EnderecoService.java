@@ -82,7 +82,7 @@ public class EnderecoService {
         Endereco endereco = new Endereco();
         endereco.setNumero(enderecoDTO.getNumero());
         endereco.setComplemento(enderecoDTO.getComplemento());
-        endereco.setIdCep(cepEnd.getId());
+        endereco.setIdCep(cepEnd.getId()); // Associa o novo CEP ao endereço
         return enderecoRepository.save(endereco);
     }
 
