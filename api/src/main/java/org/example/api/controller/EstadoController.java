@@ -21,13 +21,11 @@ public class EstadoController {
         this.estadoRepository = estadoRepository;
     }
 
-    // Listar todos os estados
     @GetMapping
     public ResponseEntity<List<Estado>> getAll() {
         return ResponseEntity.ok(estadoRepository.findAll());
     }
 
-    // Buscar estado por ID
     @GetMapping("/{id}")
     public ResponseEntity<Estado> getById(@PathVariable Integer id) {
         Estado estado = estadoRepository.findById(id);
@@ -37,21 +35,18 @@ public class EstadoController {
         return ResponseEntity.ok(estado);
     }
 
-    // Criar estado
     @PostMapping
     public ResponseEntity<Estado> create(@RequestBody Estado estado) {
         Estado novoEstado = estadoRepository.save(estado);
         return ResponseEntity.status(HttpStatus.CREATED).body(novoEstado);
     }
 
-    // Atualizar estado por ID
     @PutMapping("/{id}")
     public ResponseEntity<Estado> update(@PathVariable Integer id, @RequestBody Estado estado) {
         Estado estadoAtualizado = estadoRepository.update(id, estado);
         return ResponseEntity.ok(estadoAtualizado);
     }
 
-    // Deletar estado por ID
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Integer id) {
         estadoRepository.delete(id);

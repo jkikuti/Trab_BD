@@ -18,34 +18,29 @@ public class FabricanteRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    // Criar fabricante
-    public void save(Fabricante fabricante) {
-        String sql = "INSERT INTO loja.fabricante (nome_fabricante) VALUES (?)";
-        jdbcTemplate.update(sql, fabricante.getNomeFabricante());
+    public List<Fabricante> findAll() {
+        String sql = "SELECT id, nome_fabricante FROM loja.fabricante";
+        return jdbcTemplate.query(sql, new FabricanteRowMapper());
     }
 
-    // Atualizar fabricante
-    public void update(Integer id, Fabricante fabricante) {
-        String sql = "UPDATE loja.fabricante SET nome_fabricante = ? WHERE id = ?";
-        jdbcTemplate.update(sql, fabricante.getNomeFabricante(), id);
-    }
-
-    // Deletar fabricante
-    public void delete(Integer id) {
-        String sql = "DELETE FROM loja.fabricante WHERE id = ?";
-        jdbcTemplate.update(sql, id);
-    }
-
-    // Buscar fabricante por ID
     public Fabricante findById(Integer id) {
         String sql = "SELECT id, nome_fabricante FROM loja.fabricante WHERE id = ?";
         return jdbcTemplate.queryForObject(sql, new FabricanteRowMapper(), id);
     }
 
-    // Listar todos os fabricantes
-    public List<Fabricante> findAll() {
-        String sql = "SELECT id, nome_fabricante FROM loja.fabricante";
-        return jdbcTemplate.query(sql, new FabricanteRowMapper());
+    public void save(Fabricante fabricante) {
+        String sql = "INSERT INTO loja.fabricante (nome_fabricante) VALUES (?)";
+        jdbcTemplate.update(sql, fabricante.getNomeFabricante());
+    }
+
+    public void update(Integer id, Fabricante fabricante) {
+        String sql = "UPDATE loja.fabricante SET nome_fabricante = ? WHERE id = ?";
+        jdbcTemplate.update(sql, fabricante.getNomeFabricante(), id);
+    }
+
+    public void delete(Integer id) {
+        String sql = "DELETE FROM loja.fabricante WHERE id = ?";
+        jdbcTemplate.update(sql, id);
     }
 
     private static class FabricanteRowMapper implements RowMapper<Fabricante> {

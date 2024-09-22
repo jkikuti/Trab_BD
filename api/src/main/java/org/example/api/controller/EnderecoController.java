@@ -20,13 +20,11 @@ public class EnderecoController {
         this.enderecoRepository = enderecoRepository;
     }
 
-    // Listar todos os enderecos
     @GetMapping
     public ResponseEntity<List<Endereco>> getAll() {
         return ResponseEntity.ok(enderecoRepository.findAll());
     }
 
-    // Buscar endereco por ID
     @GetMapping("/{id}")
     public ResponseEntity<Endereco> getById(@PathVariable Integer id) {
         Endereco endereco = enderecoRepository.findById(id);
@@ -36,21 +34,18 @@ public class EnderecoController {
         return ResponseEntity.ok(endereco);
     }
 
-    // Criar endereco
     @PostMapping
     public ResponseEntity<Endereco> create(@RequestBody Endereco endereco) {
         Endereco novoEndereco = enderecoRepository.save(endereco);
         return ResponseEntity.status(HttpStatus.CREATED).body(novoEndereco);
     }
 
-    // Atualizar endereco por ID
     @PutMapping("/{id}")
     public ResponseEntity<Endereco> update(@PathVariable Integer id, @RequestBody Endereco endereco) {
         Endereco enderecoAtualizado = enderecoRepository.update(id, endereco);
         return ResponseEntity.ok(enderecoAtualizado);
     }
 
-    // Deletar endereco por ID
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Integer id) {
         enderecoRepository.delete(id);

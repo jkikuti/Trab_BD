@@ -1,17 +1,17 @@
 # Método Cliente
 
 ## Visualisação de todos os clientes
--- **Method:** GET
--- **URL:** http://localhost:8080/clientes
+- **Method:** GET
+- **URL:** http://localhost:8080/clientes
 
 ## Visualisação de um cliente
--- **Method:** GET
--- **URL:** http://localhost:8080/clientes/{idCliente}
+- **Method:** GET
+- **URL:** http://localhost:8080/clientes/{idCliente}
 
 ## Cadastro de um cliente
--- **Method:** POST
--- **URL:** http://localhost:8080/clientes
--- **Body:** 
+- **Method:** POST
+- **URL:** http://localhost:8080/clientes
+- **Body:** 
 
 ```json
 {
@@ -22,9 +22,9 @@
 ```
 
 ## Atualização de um cliente
--- **Method:** PUT
--- **URL:** http://localhost:8080/clientes/{idCliente}
--- **Body:** 
+- **Method:** PUT
+- **URL:** http://localhost:8080/clientes/{idCliente}
+- **Body:** 
 
 ```json
 {
@@ -35,24 +35,23 @@
 ```
 
 ## Exclusão de um cliente
--- **Method:** DELETE
--- **URL:** http://localhost:8080/clientes/{idCliente}
+- **Method:** DELETE
+- **URL:** http://localhost:8080/clientes/{idCliente}
 
 # Método Endereço
 
 ## Visualisação de todos os endereços
--- **Method:** GET
--- **URL:** http://localhost:8080/endereco-completo
+- **Method:** GET
+- **URL:** http://localhost:8080/endereco-completo
 
 ## Visualisação de um endereço
--- **Method:** GET
--- **URL:** http://localhost:8080/endereco-completo/{idEndereco}
+- **Method:** GET
+- **URL:** http://localhost:8080/endereco-completo/{idEndereco}
 
 ## Cadastro de um endereço
--- **Method:** POST
--- **URL:** http://localhost:8080/endereco-completo
-
--- **Body:** 
+- **Method:** POST
+- **URL:** http://localhost:8080/endereco-completo
+- **Body:** 
 
 ```json
 {
@@ -68,9 +67,9 @@
 ```
 
 ## Atualização de um endereço
--- **Method:** PUT
--- **URL:** http://localhost:8080/endereco-completo/{idEndereco}
--- **Body:** 
+- **Method:** PUT
+- **URL:** http://localhost:8080/endereco-completo/{idEndereco}
+- **Body:** 
 
 ```json
 {
@@ -86,37 +85,37 @@
 ```
 
 ## Exclusão de um endereço
--- **Method:** DELETE
--- **URL:** http://localhost:8080/endereco-completo/{idEndereco}
+- **Method:** DELETE
+- **URL:** http://localhost:8080/endereco-completo/{idEndereco}
 
 # Método Assossiação de Endereço com Cliente
 
 ## Visualisação de todos os endereços de um cliente
--- **Method:** GET
--- **URL:** http://localhost:8080/cliente-endereco/cliente/{idCliente}
+- **Method:** GET
+- **URL:** http://localhost:8080/cliente-endereco/cliente/{idCliente}
 
 ## Associar cliente a um endereço
--- **Method:** POST
--- **URL:** http://localhost:8080/cliente-endereco/cliente/{idCliente}/endereco/{idEndereco}
+- **Method:** POST
+- **URL:** http://localhost:8080/cliente-endereco/cliente/{idCliente}/endereco/{idEndereco}
 
 ## Desassociar cliente a um endereço
--- **Method:** DELETE
--- **URL:** http://localhost:8080/cliente-endereco/cliente/{idCliente}/endereco/{idEndereco}
+- **Method:** DELETE
+- **URL:** http://localhost:8080/cliente-endereco/cliente/{idCliente}/endereco/{idEndereco}
 
 # Método Fabricante
 
 ## Visualisação de todos os fabricantes
--- **Method:** GET
--- **URL:** http://localhost:8080/fabricante
+- **Method:** GET
+- **URL:** http://localhost:8080/fabricante
 
 ## Visualisação de um fabricante
--- **Method:** GET
--- **URL:** http://localhost:8080/fabricante/{idFabricante}
+- **Method:** GET
+- **URL:** http://localhost:8080/fabricante/{idFabricante}
 
 ## Cadastro de um fabricante
--- **Method:** POST
--- **URL:** http://localhost:8080/fabricante
--- **Body:** 
+- **Method:** POST
+- **URL:** http://localhost:8080/fabricante
+- **Body:** 
 
 ```json
 {
@@ -125,9 +124,9 @@
 ```
 
 ## Atualização de um fabricante
--- **Method:** PUT
--- **URL:** http://localhost:8080/fabricante/{idFabricante}
--- **Body:** 
+- **Method:** PUT
+- **URL:** http://localhost:8080/fabricante/{idFabricante}
+- **Body:** 
 
 ```json
 {
@@ -136,8 +135,64 @@
 ```
 
 ## Exclusão de um fabricante
--- **Method:** DELETE
--- **URL:** http://localhost:8080/fabricante/{idFabricante}
+- **Method:** DELETE
+- **URL:** http://localhost:8080/fabricante/{idFabricante}
 
+# Método Action Figure
 
+## Visualisação de todos os Action Figures
+- **Method:** GET
+- **URL:** http://localhost:8080/action-figure
 
+## Visualisação de um Action Figure
+- **Method:** GET
+- **URL:** http://localhost:8080/action-figure/{idActionFigure}
+
+## Cadastro de um Action Figure
+- **Method:** POST
+- **URL:** http://localhost:8080/action-figure
+- **Body:** 
+
+```json
+{
+    "personagem": "Superman",
+    "universo": "Marvel",
+    "tamanho": 30,
+    "preco": 129.99,
+    "descricao": "Figura articulada do Superman",
+    "categoria": "Filmes",
+    "estoque": 6,
+    "idFabricante": 4
+}
+```
+
+## Atualização de um Action Figure
+- **Method:** PUT
+- **URL:** http://localhost:8080/action-figure/{idActionFigure}
+- **Body:** 
+
+```json
+{
+    "personagem": "Superman",
+    "universo": "DC",
+    "tamanho": 30,
+    "preco": 129.99,
+    "descricao": "Figura articulada do Superman",
+    "categoria": "Filmes",
+    "estoque": 6,
+    "idFabricante": 4
+}
+```
+
+## Exclusão de um Action Figure
+- **Method:** DELETE
+- **URL:** http://localhost:8080/action-figure/{idActionFigure}
+
+## Filtrar Action Figures
+- **Method:** GET
+- **URLS:**
+    - **URL:** http://localhost:8080/action-figure/filtrar?idFabricante=2
+    - **URL:** http://localhost:8080/action-figure/filtrar?categoria=Filmes
+    - **URL:** http://localhost:8080/action-figure/filtrar?universo=DC
+    - **URL:** http://localhost:8080/action-figure/filtrar?personagem=Sora
+    - **URL:** http://localhost:8080/action-figure/filtrar?idFabricante=4&categoria=Filmes&universo=DC&personagem=Superman

@@ -22,21 +22,12 @@ public class CadastroEnderecoCompletoController {
         this.enderecoService = enderecoService;
     }
 
-    // Método para inserir um endereço completo
-    @PostMapping
-    public ResponseEntity<Endereco> inserirEnderecoCompleto(@Valid @RequestBody EnderecoDTO enderecoDTO) {
-        Endereco novoEndereco = enderecoService.inserirEnderecoCompleto(enderecoDTO);
-        return ResponseEntity.status(HttpStatus.CREATED).body(novoEndereco);
-    }
-
-    // Método para buscar todos os endereços
     @GetMapping
     public ResponseEntity<List<Endereco>> getAll() {
         List<Endereco> enderecos = enderecoService.getAllEnderecos();
         return ResponseEntity.ok(enderecos);
     }
 
-    // Método para buscar um endereço completo pelo ID
     @GetMapping("/{id}")
     public ResponseEntity<Endereco> getById(@PathVariable Integer id) {
         Endereco endereco = enderecoService.getEnderecoById(id);
@@ -46,7 +37,12 @@ public class CadastroEnderecoCompletoController {
         return ResponseEntity.ok(endereco);
     }
 
-    // Método para atualizar um endereço completo pelo ID
+    @PostMapping
+    public ResponseEntity<Endereco> inserirEnderecoCompleto(@Valid @RequestBody EnderecoDTO enderecoDTO) {
+        Endereco novoEndereco = enderecoService.inserirEnderecoCompleto(enderecoDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(novoEndereco);
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<Endereco> update(@PathVariable Integer id, @Valid @RequestBody EnderecoDTO enderecoDTO) {
         Endereco enderecoAtualizado = enderecoService.updateEnderecoCompleto(id, enderecoDTO);
@@ -56,7 +52,6 @@ public class CadastroEnderecoCompletoController {
         return ResponseEntity.ok(enderecoAtualizado);
     }
 
-    // Método para deletar um endereço completo pelo ID
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Integer id) {
         boolean deletado = enderecoService.deleteEnderecoCompleto(id);

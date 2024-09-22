@@ -21,13 +21,11 @@ public class CepEndController {
         this.cepEndRepository = cepEndRepository;
     }
 
-    // Listar todos os ceps
     @GetMapping
     public ResponseEntity<List<CepEnd>> getAll() {
         return ResponseEntity.ok(cepEndRepository.findAll());
     }
 
-    // Buscar cep por ID
     @GetMapping("/{id}")
     public ResponseEntity<CepEnd> getById(@PathVariable Integer id) {
         CepEnd cepEnd = cepEndRepository.findById(id);
@@ -37,21 +35,18 @@ public class CepEndController {
         return ResponseEntity.ok(cepEnd);
     }
 
-    // Criar cep
     @PostMapping
     public ResponseEntity<CepEnd> create(@RequestBody CepEnd cepEnd) {
         CepEnd novoCepEnd = cepEndRepository.save(cepEnd);
         return ResponseEntity.status(HttpStatus.CREATED).body(novoCepEnd);
     }
 
-    // Atualizar cep por ID
     @PutMapping("/{id}")
     public ResponseEntity<CepEnd> update(@PathVariable Integer id, @RequestBody CepEnd cepEnd) {
         CepEnd cepEndAtualizado = cepEndRepository.update(id, cepEnd);
         return ResponseEntity.ok(cepEndAtualizado);
     }
 
-    // Deletar cep por ID
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Integer id) {
         cepEndRepository.delete(id);

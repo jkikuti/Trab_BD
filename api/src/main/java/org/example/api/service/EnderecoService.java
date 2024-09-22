@@ -32,7 +32,6 @@ public class EnderecoService {
     @Transactional
     public Endereco inserirEnderecoCompleto(EnderecoDTO enderecoDTO) {
 
-        // Verificar ou inserir o estado
         Estado estado = estadoRepository.findBySigla(enderecoDTO.getEstado());
         if (estado == null) {
             estado = new Estado();
@@ -40,7 +39,6 @@ public class EnderecoService {
             estado = estadoRepository.save(estado);
         }
 
-        // Verificar ou inserir a cidade
         Cidade cidade = cidadeRepository.findByNomeAndIdEstado(enderecoDTO.getCidade(), estado.getId());
         if (cidade == null) {
             cidade = new Cidade();
@@ -49,7 +47,6 @@ public class EnderecoService {
             cidade = cidadeRepository.save(cidade);
         }
 
-        // Verificar ou inserir o bairro
         Bairro bairro = bairroRepository.findByNomeAndIdCidade(enderecoDTO.getBairro(), cidade.getId());
         if (bairro == null) {
             bairro = new Bairro();
@@ -58,7 +55,6 @@ public class EnderecoService {
             bairro = bairroRepository.save(bairro);
         }
 
-        // Verificar ou inserir o logradouro
         Logradouro logradouro = logradouroRepository.findByNomeAndIdCidade(enderecoDTO.getLogradouro(), cidade.getId());
         if (logradouro == null) {
             logradouro = new Logradouro();
@@ -68,7 +64,6 @@ public class EnderecoService {
             logradouro = logradouroRepository.save(logradouro);
         }
 
-        // Verificar ou inserir o cep
         CepEnd cepEnd = cepEndRepository.findByCep(enderecoDTO.getCep());
         if (cepEnd == null) {
             cepEnd = new CepEnd();
@@ -78,11 +73,10 @@ public class EnderecoService {
             cepEnd = cepEndRepository.save(cepEnd);
         }
 
-        // Inserir o endereço
         Endereco endereco = new Endereco();
         endereco.setNumero(enderecoDTO.getNumero());
         endereco.setComplemento(enderecoDTO.getComplemento());
-        endereco.setIdCep(cepEnd.getId()); // Associa o novo CEP ao endereço
+        endereco.setIdCep(cepEnd.getId());
         return enderecoRepository.save(endereco);
     }
 
@@ -94,16 +88,14 @@ public class EnderecoService {
         return enderecoRepository.findById(id);
     }
 
-    // Método para atualizar o endereço completo
     @Transactional
     public Endereco updateEnderecoCompleto(Integer id, EnderecoDTO enderecoDTO) {
-        // Verifica se o endereço existe no banco de dados
+
         Endereco enderecoExistente = enderecoRepository.findById(id);
         if (enderecoExistente == null) {
-            return null;  // Retorna null caso o endereço não exista
+            return null;
         }
 
-        // Atualizar ou verificar Estado
         Estado estado = estadoRepository.findBySigla(enderecoDTO.getEstado());
         if (estado == null) {
             estado = new Estado();
@@ -111,7 +103,6 @@ public class EnderecoService {
             estado = estadoRepository.save(estado);
         }
 
-        // Atualizar ou verificar Cidade
         Cidade cidade = cidadeRepository.findByNomeAndIdEstado(enderecoDTO.getCidade(), estado.getId());
         if (cidade == null) {
             cidade = new Cidade();
@@ -120,7 +111,6 @@ public class EnderecoService {
             cidade = cidadeRepository.save(cidade);
         }
 
-        // Atualizar ou verificar Bairro
         Bairro bairro = bairroRepository.findByNomeAndIdCidade(enderecoDTO.getBairro(), cidade.getId());
         if (bairro == null) {
             bairro = new Bairro();
@@ -129,7 +119,6 @@ public class EnderecoService {
             bairro = bairroRepository.save(bairro);
         }
 
-        // Atualizar ou verificar Logradouro
         Logradouro logradouro = logradouroRepository.findByNomeAndIdCidade(enderecoDTO.getLogradouro(), cidade.getId());
         if (logradouro == null) {
             logradouro = new Logradouro();
@@ -139,7 +128,6 @@ public class EnderecoService {
             logradouro = logradouroRepository.save(logradouro);
         }
 
-        // Atualizar ou verificar CEP
         CepEnd cepEnd = cepEndRepository.findByCep(enderecoDTO.getCep());
         if (cepEnd == null) {
             cepEnd = new CepEnd();
@@ -149,19 +137,16 @@ public class EnderecoService {
             cepEnd = cepEndRepository.save(cepEnd);
         }
 
-        // Atualizar o Endereço
         Endereco enderecoAtualizado = new Endereco();
         enderecoAtualizado.setId(id);  // Mantém o ID do endereço original
         enderecoAtualizado.setNumero(enderecoDTO.getNumero());
         enderecoAtualizado.setComplemento(enderecoDTO.getComplemento());
-        enderecoAtualizado.setIdCep(cepEnd.getId());  // Associa o novo CEP ao endereço
+        enderecoAtualizado.setIdCep(cepEnd.getId());
 
-        // Atualiza o endereço no banco de dados
         enderecoRepository.update(id, enderecoAtualizado);
 
         return enderecoAtualizado;
     }
-
 
     @Transactional
     public boolean deleteEnderecoCompleto(Integer id) {

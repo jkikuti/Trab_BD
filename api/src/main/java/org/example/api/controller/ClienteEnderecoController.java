@@ -20,7 +20,6 @@ public class ClienteEnderecoController {
         this.clienteEnderecoRepository = clienteEnderecoRepository;
     }
 
-    // Associar cliente a um endereço
     @PostMapping("/cliente/{idCliente}/endereco/{idEndereco}")
     public ResponseEntity<Void> associarClienteEndereco(
             @PathVariable Integer idCliente, @PathVariable Integer idEndereco) {
@@ -31,7 +30,6 @@ public class ClienteEnderecoController {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    // Listar todos os endereços de um cliente
     @GetMapping("/cliente/{idCliente}")
     public ResponseEntity<List<ClienteEndereco>> listarEnderecosPorCliente(@PathVariable Integer idCliente) {
         List<ClienteEndereco> clienteEnderecos = clienteEnderecoRepository.findByClienteId(idCliente);
@@ -41,7 +39,6 @@ public class ClienteEnderecoController {
         return ResponseEntity.ok(clienteEnderecos);
     }
 
-    // Remover associação entre cliente e endereço
     @DeleteMapping("/cliente/{idCliente}/endereco/{idEndereco}")
     public ResponseEntity<Void> removerAssociacaoClienteEndereco(
             @PathVariable Integer idCliente, @PathVariable Integer idEndereco) {

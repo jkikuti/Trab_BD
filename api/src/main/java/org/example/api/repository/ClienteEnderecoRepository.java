@@ -18,19 +18,16 @@ public class ClienteEnderecoRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    // Método para associar um cliente a um endereço
     public void save(ClienteEndereco clienteEndereco) {
         String sql = "INSERT INTO loja.cliente_endereco (id_cliente, id_endereco) VALUES (?, ?)";
         jdbcTemplate.update(sql, clienteEndereco.getIdCliente(), clienteEndereco.getIdEndereco());
     }
 
-    // Método para listar todos os endereços de um cliente
     public List<ClienteEndereco> findByClienteId(Integer idCliente) {
         String sql = "SELECT id_cliente, id_endereco FROM loja.cliente_endereco WHERE id_cliente = ?";
         return jdbcTemplate.query(sql, new ClienteEnderecoRowMapper(), idCliente);
     }
 
-    // Método para remover a associação entre cliente e endereço
     public void deleteByClienteIdAndEnderecoId(Integer idCliente, Integer idEndereco) {
         String sql = "DELETE FROM loja.cliente_endereco WHERE id_cliente = ? AND id_endereco = ?";
         jdbcTemplate.update(sql, idCliente, idEndereco);

@@ -21,13 +21,11 @@ public class CidadeController {
         this.cidadeRepository = cidadeRepository;
     }
 
-    // Listar todas as cidades
     @GetMapping
     public ResponseEntity<List<Cidade>> getAll() {
         return ResponseEntity.ok(cidadeRepository.findAll());
     }
 
-    // Buscar cidade por ID
     @GetMapping("/{id}")
     public ResponseEntity<Cidade> getById(@PathVariable Integer id) {
         Cidade cidade = cidadeRepository.findById(id);
@@ -37,21 +35,18 @@ public class CidadeController {
         return ResponseEntity.ok(cidade);
     }
 
-    // Criar cidade
     @PostMapping
     public ResponseEntity<Cidade> create(@RequestBody Cidade cidade) {
         Cidade novaCidade = cidadeRepository.save(cidade);
         return ResponseEntity.status(HttpStatus.CREATED).body(novaCidade);
     }
 
-    // Atualizar cidade por ID
     @PutMapping("/{id}")
     public ResponseEntity<Cidade> update(@PathVariable Integer id, @RequestBody Cidade cidade) {
         Cidade cidadeAtualizada = cidadeRepository.update(id, cidade);
         return ResponseEntity.ok(cidadeAtualizada);
     }
 
-    // Deletar cidade por ID
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Integer id) {
         cidadeRepository.delete(id);
