@@ -4,7 +4,6 @@ import org.example.api.model.ClienteEndereco;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
-import org.springframework.dao.EmptyResultDataAccessException;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -19,23 +18,20 @@ public class ClienteEnderecoRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public List<ClienteEndereco> findAll() {
-        String sql = "SELECT id_cliente, id_endereco FROM loja.cliente_endereco";
-        return jdbcTemplate.query(sql, new ClienteEnderecoRowMapper());
-    }
-
-    public ClienteEndereco findById(Integer idCliente, Integer idEndereco) {
-        String sql = "SELECT id_cliente, id_endereco FROM loja.cliente_endereco WHERE id_cliente = ? AND id_endereco = ?";
-        return jdbcTemplate.queryForObject(sql, new ClienteEnderecoRowMapper(), idCliente, idEndereco);
-    }
-
-    public ClienteEndereco save(ClienteEndereco clienteEndereco) {
+    // Método para associar um cliente a um endereço
+    public void save(ClienteEndereco clienteEndereco) {
         String sql = "INSERT INTO loja.cliente_endereco (id_cliente, id_endereco) VALUES (?, ?)";
         jdbcTemplate.update(sql, clienteEndereco.getIdCliente(), clienteEndereco.getIdEndereco());
-        return findById(clienteEndereco.getIdCliente(), clienteEndereco.getIdEndereco());
     }
 
-    public void delete(Integer idCliente, Integer idEndereco) {
+    // Método para listar todos os endereços de um cliente
+    public List<ClienteEndereco> findByClienteId(Integer idCliente) {
+        String sql = "SELECT id_cliente, id_endereco FROM loja.cliente_endereco WHERE id_cliente = ?";
+        return jdbcTemplate.query(sql, new ClienteEnderecoRowMapper(), idCliente);
+    }
+
+    // Método para remover a associação entre cliente e endereço
+    public void deleteByClienteIdAndEnderecoId(Integer idCliente, Integer idEndereco) {
         String sql = "DELETE FROM loja.cliente_endereco WHERE id_cliente = ? AND id_endereco = ?";
         jdbcTemplate.update(sql, idCliente, idEndereco);
     }

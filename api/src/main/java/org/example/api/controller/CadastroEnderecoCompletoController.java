@@ -12,7 +12,7 @@ import jakarta.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/enderecos-completos")
+@RequestMapping("/endereco-completo")
 @Validated
 public class CadastroEnderecoCompletoController {
 

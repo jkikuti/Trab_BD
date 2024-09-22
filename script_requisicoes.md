@@ -6,7 +6,7 @@
 
 ## Visualisação de um cliente
 -- **Method:** GET
--- **URL:** http://localhost:8080/clientes/{id}
+-- **URL:** http://localhost:8080/clientes/{idCliente}
 
 ## Cadastro de um cliente
 -- **Method:** POST
@@ -23,7 +23,7 @@
 
 ## Atualização de um cliente
 -- **Method:** PUT
--- **URL:** http://localhost:8080/clientes/{id}
+-- **URL:** http://localhost:8080/clientes/{idCliente}
 -- **Body:** 
 
 ```json
@@ -36,4 +36,69 @@
 
 ## Exclusão de um cliente
 -- **Method:** DELETE
--- **URL:** http://localhost:8080/clientes/{id}
+-- **URL:** http://localhost:8080/clientes/{idCliente}
+
+# Método Endereço
+
+## Visualisação de todos os endereços
+-- **Method:** GET
+-- **URL:** http://localhost:8080/endereco-completo
+
+## Visualisação de um endereço
+-- **Method:** GET
+-- **URL:** http://localhost:8080/endereco-completo/{idEndereco}
+
+## Cadastro de um endereço
+-- **Method:** POST
+-- **URL:** http://localhost:8080/endereco-completo
+
+-- **Body:** 
+
+```json
+{
+    "estado": "PR",
+    "cidade": "Londrina",
+    "cep": "86065-400",
+    "logradouro": "Rua Serra do Maracju",
+    "tipoLogradouro": "Rua",
+    "numero": 469,
+    "complemento": "Casa",
+    "bairro": "Bandeirantes"
+}
+```
+
+## Atualização de um endereço
+-- **Method:** PUT
+-- **URL:** http://localhost:8080/endereco-completo/{idEndereco}
+-- **Body:** 
+
+```json
+{
+    "estado": "PR",
+    "cidade": "Londrina",
+    "cep": "86065-400",
+    "logradouro": "Rua Serra do Maracaju",
+    "tipoLogradouro": "Rua",
+    "numero": 468,
+    "complemento": "Casa Geminada",
+    "bairro": "Bandeirantes"
+}
+```
+
+## Exclusão de um endereço
+-- **Method:** DELETE
+-- **URL:** http://localhost:8080/endereco-completo/{idEndereco}
+
+# Método Assossiação de Endereço com Cliente
+
+## Visualisação de todos os endereços de um cliente
+-- **Method:** GET
+-- **URL:** http://localhost:8080/cliente-endereco/cliente/{idCliente}
+
+## Associar cliente a um endereço
+-- **Method:** POST
+-- **URL:** http://localhost:8080/cliente-endereco/cliente/{idCliente}/endereco/{idEndereco}
+
+## Desassociar cliente a um endereço
+-- **Method:** DELETE
+-- **URL:** http://localhost:8080/cliente-endereco/cliente/{idCliente}/endereco/{idEndereco}

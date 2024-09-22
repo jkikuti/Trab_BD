@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/cliente-enderecos")
+@RequestMapping("/cliente-endereco")
 @Validated
 public class ClienteEnderecoController {
 
@@ -20,29 +20,32 @@ public class ClienteEnderecoController {
         this.clienteEnderecoRepository = clienteEnderecoRepository;
     }
 
-    @GetMapping
-    public ResponseEntity<List<ClienteEndereco>> getAll() {
-        return ResponseEntity.ok(clienteEnderecoRepository.findAll());
+    // Associar cliente a um endereço
+    @PostMapping("/cliente/{idCliente}/endereco/{idEndereco}")
+    public ResponseEntity<Void> associarClienteEndereco(
+            @PathVariable Integer idCliente, @PathVariable Integer idEndereco) {
+        ClienteEndereco clienteEndereco = new ClienteEndereco();
+        clienteEndereco.setIdCliente(idCliente);
+        clienteEndereco.setIdEndereco(idEndereco);
+        clienteEnderecoRepository.save(clienteEndereco);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @GetMapping("/{idCliente}/{idEndereco}")
-    public ResponseEntity<ClienteEndereco> getById(@PathVariable Integer idCliente, @PathVariable Integer idEndereco) {
-        ClienteEndereco clienteEndereco = clienteEnderecoRepository.findById(idCliente, idEndereco);
-        if (clienteEndereco == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+    // Listar todos os endereços de um cliente
+    @GetMapping("/cliente/{idCliente}")
+    public ResponseEntity<List<ClienteEndereco>> listarEnderecosPorCliente(@PathVariable Integer idCliente) {
+        List<ClienteEndereco> clienteEnderecos = clienteEnderecoRepository.findByClienteId(idCliente);
+        if (clienteEnderecos.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
-        return ResponseEntity.ok(clienteEndereco);
+        return ResponseEntity.ok(clienteEnderecos);
     }
 
-    @PostMapping
-    public ResponseEntity<ClienteEndereco> create(@RequestBody ClienteEndereco clienteEndereco) {
-        ClienteEndereco novoClienteEndereco = clienteEnderecoRepository.save(clienteEndereco);
-        return ResponseEntity.status(HttpStatus.CREATED).body(novoClienteEndereco);
-    }
-
-    @DeleteMapping("/{idCliente}/{idEndereco}")
-    public ResponseEntity<Void> delete(@PathVariable Integer idCliente, @PathVariable Integer idEndereco) {
-        clienteEnderecoRepository.delete(idCliente, idEndereco);
+    // Remover associação entre cliente e endereço
+    @DeleteMapping("/cliente/{idCliente}/endereco/{idEndereco}")
+    public ResponseEntity<Void> removerAssociacaoClienteEndereco(
+            @PathVariable Integer idCliente, @PathVariable Integer idEndereco) {
+        clienteEnderecoRepository.deleteByClienteIdAndEnderecoId(idCliente, idEndereco);
         return ResponseEntity.noContent().build();
     }
 }
