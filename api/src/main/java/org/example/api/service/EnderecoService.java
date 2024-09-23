@@ -17,20 +17,37 @@ public class EnderecoService {
     private final LogradouroRepository logradouroRepository;
     private final CepEndRepository cepEndRepository;
     private final EnderecoRepository enderecoRepository;
+    private final EnderecoCompletoRepository enderecoCompletoRepository;
 
     public EnderecoService(EstadoRepository estadoRepository, CidadeRepository cidadeRepository, 
                            BairroRepository bairroRepository, LogradouroRepository logradouroRepository,
-                           CepEndRepository cepEndRepository, EnderecoRepository enderecoRepository) {
+                           CepEndRepository cepEndRepository, EnderecoRepository enderecoRepository,
+                           EnderecoCompletoRepository enderecoCompletoRepository) {
         this.estadoRepository = estadoRepository;
         this.cidadeRepository = cidadeRepository;
         this.bairroRepository = bairroRepository;
         this.logradouroRepository = logradouroRepository;
         this.cepEndRepository = cepEndRepository;
         this.enderecoRepository = enderecoRepository;
+        this.enderecoCompletoRepository = enderecoCompletoRepository;
     }
 
     @Transactional
     public Endereco inserirEnderecoCompleto(EnderecoDTO enderecoDTO) {
+
+        Endereco enderecoExistente = enderecoCompletoRepository.findEnderecoCompleto(
+            enderecoDTO.getEstado(),
+            enderecoDTO.getCidade(),
+            enderecoDTO.getBairro(),
+            enderecoDTO.getLogradouro(),
+            enderecoDTO.getCep(),
+            enderecoDTO.getNumero(),
+            enderecoDTO.getComplemento()
+        );
+
+        if (enderecoExistente != null) {
+            return enderecoExistente;
+        }
 
         Estado estado = estadoRepository.findBySigla(enderecoDTO.getEstado());
         if (estado == null) {
@@ -73,11 +90,11 @@ public class EnderecoService {
             cepEnd = cepEndRepository.save(cepEnd);
         }
 
-        Endereco endereco = new Endereco();
-        endereco.setNumero(enderecoDTO.getNumero());
-        endereco.setComplemento(enderecoDTO.getComplemento());
-        endereco.setIdCep(cepEnd.getId());
-        return enderecoRepository.save(endereco);
+        Endereco novoEndereco = new Endereco();
+        novoEndereco.setNumero(enderecoDTO.getNumero());
+        novoEndereco.setComplemento(enderecoDTO.getComplemento());
+        novoEndereco.setIdCep(cepEnd.getId());
+        return enderecoRepository.save(novoEndereco);
     }
 
     public List<Endereco> getAllEnderecos() {
