@@ -66,6 +66,19 @@
 }
 ```
 
+```json
+{
+    "estado": "RS",
+    "cidade": "Porto Alegre",
+    "cep": "90050-000",
+    "logradouro": "Avenida Borges de Medeiros",
+    "tipoLogradouro": "Avenida",
+    "numero": 2500,
+    "complemento": "Bloco B",
+    "bairro": "Centro Histórico"
+}
+```
+
 ## Atualização de um endereço
 - **Method:** PUT
 - **URL:** http://localhost:8080/endereco-completo/{idEndereco}
@@ -177,7 +190,7 @@
     "universo": "DC",
     "tamanho": 30,
     "preco": 129.99,
-    "descricao": "Figura articulada do Superman",
+    "descricao": "Action Figure do personagem Superman da série DC",
     "categoria": "Filmes",
     "estoque": 6,
     "idFabricante": 4
@@ -196,3 +209,99 @@
     - **URL:** http://localhost:8080/action-figure/filtrar?universo=DC
     - **URL:** http://localhost:8080/action-figure/filtrar?personagem=Sora
     - **URL:** http://localhost:8080/action-figure/filtrar?idFabricante=4&categoria=Filmes&universo=DC&personagem=Superman
+
+# Método Imagem
+
+## Visualisação de todas as imagens
+- **Method:** GET
+- **URL:** http://localhost:8080/imagens
+
+## Visualisação de uma imagem
+- **Method:** GET
+- **URL:** http://localhost:8080/imagens/{idImagem}
+
+## Cadastro de uma imagem
+- **Method:** POST
+- **URL:** http://localhost:8080/imagens
+- **Body:** 
+
+```json
+{
+    "imagemUrl": "http://exemplo.com/imagem.png",
+    "idActionFigure": 1
+}
+```
+
+## Atualização de uma imagem
+- **Method:** PUT
+- **URL:** http://localhost:8080/imagens/{idImagem}
+- **Body:** 
+
+```json
+{
+    "imagemUrl": "http://exemplo.com/imagem.png",
+    "idActionFigure": 2
+}
+```
+
+## Exclusão de uma imagem
+- **Method:** DELETE
+- **URL:** http://localhost:8080/imagens/{idImagem}
+
+# Método Material
+
+## Visualisação de todos os materiais
+- **Method:** GET
+- **URL:** http://localhost:8080/materiais
+
+## Visualisação de um material
+- **Method:** GET
+- **URL:** http://localhost:8080/materiais/{idMaterial}
+
+## Cadastro de um material
+- **Method:** POST
+- **URL:** http://localhost:8080/materiais
+- **Body:** 
+
+```json
+{
+    "tipoMaterial": "PVC"
+}
+```
+
+## Atualização de um material
+- **Method:** PUT
+- **URL:** http://localhost:8080/materiais/{idMaterial}
+- **Body:** 
+
+```json
+{
+    "tipoMaterial": "Argila"
+}
+```
+
+## Exclusão de um material
+- **Method:** DELETE
+- **URL:** http://localhost:8080/materiais/{idMaterial}
+
+# Método Action Figure Material
+
+## Visualisação de todos os materiais de todas Action Figure
+- **Method:** GET
+- **URL:** http://localhost:8080/action-figure-material
+
+## Associar material a um Action Figure
+- **Method:** POST
+- **URL:** http://localhost:8080/action-figure-material
+- **Body:** 
+
+```json
+{
+    "idActionFigure": 1,
+    "idMaterial": 4
+}
+```
+
+## Desassociar material a um Action Figure
+- **Method:** DELETE
+- **URL:** http://localhost:8080/action-figure-material/af/{idActionFigure}/material/{idMaterial}
