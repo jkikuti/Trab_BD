@@ -1,7 +1,6 @@
 package org.example.api.repository;
 
 import org.example.api.model.Cliente;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -21,30 +20,27 @@ public class ClienteRepository {
     }
 
     public List<Cliente> findAll() {
-        String sql = "SELECT id, cpf, nome, email FROM loja.cliente";
+        String sql = "SELECT id, cpf, nome, email, senha FROM loja.cliente";
         return jdbcTemplate.query(sql, new ClienteRowMapper());
     }
 
     public Cliente findById(Integer id) {
-        String sql = "SELECT id, cpf, nome, email FROM loja.cliente WHERE id = ?";
-        try {
-            return jdbcTemplate.queryForObject(sql, new ClienteRowMapper(), id);
-        } catch (EmptyResultDataAccessException e) {
-            return null;
-        }
+        String sql = "SELECT id, cpf, nome, email, senha FROM loja.cliente WHERE id = ?";
+        return jdbcTemplate.queryForObject(sql, new ClienteRowMapper(), id);
     }
 
     @Transactional
     public Cliente save(Cliente cliente) {
-        String sql = "INSERT INTO loja.cliente (cpf, nome, email) VALUES (?, ?, ?) RETURNING id";
-        Integer generatedId = jdbcTemplate.queryForObject(sql, new Object[]{cliente.getCpf(), cliente.getNome(), cliente.getEmail()}, Integer.class);
+        String sql = "INSERT INTO loja.cliente (cpf, nome, email, senha) VALUES (?, ?, ?, ?) RETURNING id";
+        Integer generatedId = jdbcTemplate.queryForObject(sql, new Object[]{
+            cliente.getCpf(), cliente.getNome(), cliente.getEmail(), cliente.getSenha()}, Integer.class);
         return findById(generatedId);
     }
 
     @Transactional
     public Cliente update(Integer id, Cliente cliente) {
-        String sql = "UPDATE loja.cliente SET cpf = ?, nome = ?, email = ? WHERE id = ?";
-        jdbcTemplate.update(sql, cliente.getCpf(), cliente.getNome(), cliente.getEmail(), id);
+        String sql = "UPDATE loja.cliente SET cpf = ?, nome = ?, email = ?, senha = ? WHERE id = ?";
+        jdbcTemplate.update(sql, cliente.getCpf(), cliente.getNome(), cliente.getEmail(), cliente.getSenha(), id);
         return findById(id);
     }
 
@@ -62,6 +58,7 @@ public class ClienteRepository {
             cliente.setCpf(rs.getString("cpf"));
             cliente.setNome(rs.getString("nome"));
             cliente.setEmail(rs.getString("email"));
+            cliente.setSenha(rs.getString("senha"));
             return cliente;
         }
     }

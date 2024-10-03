@@ -21,6 +21,10 @@ public class Cliente {
     @NotEmpty(message = "E-mail não pode estar vazio")
     private String email;
 
+    @NotEmpty(message = "Senha não pode estar vazia")
+    @Size(min = 6, message = "Senha deve ter no mínimo 6 caracteres")
+    private String senha;
+
     // Getters e Setters
     public Integer getId() {
         return id;
@@ -52,5 +56,13 @@ public class Cliente {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
     }
 }

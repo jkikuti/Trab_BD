@@ -21,13 +21,13 @@ public class FabricanteController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Fabricante>> listarFabricantes() {
+    public ResponseEntity<List<Fabricante>> getAll() {
         List<Fabricante> fabricantes = fabricanteRepository.findAll();
         return ResponseEntity.ok(fabricantes);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Fabricante> buscarFabricantePorId(@PathVariable Integer id) {
+    public ResponseEntity<Fabricante> getById(@PathVariable Integer id) {
         Fabricante fabricante = fabricanteRepository.findById(id);
         if (fabricante == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
@@ -36,13 +36,13 @@ public class FabricanteController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> criarFabricante(@RequestBody Fabricante fabricante) {
+    public ResponseEntity<Void> create(@RequestBody Fabricante fabricante) {
         fabricanteRepository.save(fabricante);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> atualizarFabricante(@PathVariable Integer id, @RequestBody Fabricante fabricante) {
+    public ResponseEntity<Void> update(@PathVariable Integer id, @RequestBody Fabricante fabricante) {
         Fabricante fabricanteExistente = fabricanteRepository.findById(id);
         if (fabricanteExistente == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
@@ -52,7 +52,7 @@ public class FabricanteController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletarFabricante(@PathVariable Integer id) {
+    public ResponseEntity<Void> delete(@PathVariable Integer id) {
         Fabricante fabricanteExistente = fabricanteRepository.findById(id);
         if (fabricanteExistente == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();

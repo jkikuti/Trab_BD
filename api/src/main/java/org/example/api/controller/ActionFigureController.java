@@ -21,13 +21,13 @@ public class ActionFigureController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ActionFigure>> listarActionFigures() {
+    public ResponseEntity<List<ActionFigure>> getAll() {
         List<ActionFigure> actionFigures = actionFigureRepository.findAll();
         return ResponseEntity.ok(actionFigures);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ActionFigure> buscarActionFigurePorId(@PathVariable Integer id) {
+    public ResponseEntity<ActionFigure> getById(@PathVariable Integer id) {
         ActionFigure actionFigure = actionFigureRepository.findById(id);
         if (actionFigure == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
@@ -36,13 +36,13 @@ public class ActionFigureController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> criarActionFigure(@RequestBody ActionFigure actionFigure) {
+    public ResponseEntity<Void> create(@RequestBody ActionFigure actionFigure) {
         actionFigureRepository.save(actionFigure);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> atualizarActionFigure(@PathVariable Integer id, @RequestBody ActionFigure actionFigure) {
+    public ResponseEntity<Void> update(@PathVariable Integer id, @RequestBody ActionFigure actionFigure) {
         ActionFigure actionFigureExistente = actionFigureRepository.findById(id);
         if (actionFigureExistente == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
@@ -52,7 +52,7 @@ public class ActionFigureController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletarActionFigure(@PathVariable Integer id) {
+    public ResponseEntity<Void> delete(@PathVariable Integer id) {
         ActionFigure actionFigureExistente = actionFigureRepository.findById(id);
         if (actionFigureExistente == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
@@ -63,7 +63,7 @@ public class ActionFigureController {
 
     // Filtro para buscar action figures por fabricante, categoria, universo ou personagem
     @GetMapping("/filtrar")
-    public ResponseEntity<List<ActionFigure>> filtrarActionFigures(
+    public ResponseEntity<List<ActionFigure>> filter(
             @RequestParam(value = "idFabricante", required = false) Integer idFabricante,
             @RequestParam(value = "categoria", required = false) String categoria,
             @RequestParam(value = "universo", required = false) String universo,

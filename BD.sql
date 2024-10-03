@@ -7,6 +7,7 @@ CREATE TABLE loja.cliente (
     cpf VARCHAR(14) NOT NULL,
     nome VARCHAR(200),
     email VARCHAR(200) NOT NULL,
+    senha VARCHAR(200) NOT NULL,
     
     CONSTRAINT pk_cliente PRIMARY KEY(id),
     CONSTRAINT uq_cliente_cpf UNIQUE (cpf),
@@ -165,35 +166,6 @@ CREATE TABLE loja.imagem (
     CONSTRAINT fk_id_action_figure FOREIGN KEY(id_action_figure) REFERENCES loja.action_figure(id) ON DELETE CASCADE
 );
 
---------------
--- Carrinho --
---------------
-
--- Criar a tabela spring_session
-CREATE TABLE loja.spring_session (
-    id_primario CHAR(36) NOT NULL,
-    id_sessao CHAR(36) NOT NULL,
-    hora_criacao BIGINT NOT NULL,
-    hora_ultimo_acesso BIGINT NOT NULL,
-    intervalo_max_inatividade INT NOT NULL,
-    tempo_expiracao BIGINT NOT NULL,
-    nome_principal VARCHAR(100),
-
-    CONSTRAINT pk_spring_session PRIMARY KEY(id_primario)
-);
-
--- Criar índices para spring_session
-CREATE UNIQUE INDEX spring_session_ix1 ON loja.spring_session (id_sessao);
-CREATE INDEX spring_session_ix2 ON loja.spring_session (tempo_expiracao);
-CREATE INDEX spring_session_ix3 ON loja.spring_session (nome_principal);
-
--- Criar a tabela spring_session_atributos
-CREATE TABLE loja.spring_session_atributos (
-    id_sessao_primaria CHAR(36) NOT NULL,
-    nome_atributos VARCHAR(200) NOT NULL,
-    atributos_bytes BYTEA NOT NULL,
-
-    CONSTRAINT pk_spring_session_atributos PRIMARY KEY(id_sessao_primaria, nome_atributos),
-    CONSTRAINT fk_spring_session_atributos FOREIGN KEY(id_sessao_primaria) 
-        REFERENCES loja.spring_session(id_primario) ON DELETE CASCADE
-);
+--Alterações
+ALTER TABLE loja.cliente
+ADD COLUMN senha VARCHAR(255) NOT NULL DEFAULT 'senha_temporaria';
