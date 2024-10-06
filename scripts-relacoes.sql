@@ -2,17 +2,19 @@
 SELECT 
     DATE_TRUNC('month', p.data_pedido::timestamp AT TIME ZONE 'UTC') AS periodo,
     SUM(ptaf.pedido_quantidade * ptaf.valor_unitario) AS receita_total
+FROM 
     loja.pedido p
 JOIN 
     loja.pedido_tem_action_figure ptaf ON p.id = ptaf.id_pedido
 JOIN 
     loja.action_figure af ON ptaf.id_action_figure = af.id
 WHERE 
-    p.data_pedido::timestamp AT TIME ZONE 'UTC' BETWEEN '2024-09-01T00:00:00Z' AND '2024-09-01T23:59:59Z'
+    p.data_pedido::timestamp AT TIME ZONE 'UTC' BETWEEN '2024-09-01T00:00:00Z' AND '2024-09-30T23:59:59Z'
 GROUP BY 
     DATE_TRUNC('month', p.data_pedido::timestamp AT TIME ZONE 'UTC')
 ORDER BY 
     periodo;
+
 
 
 -- Relatório de Action Figures Mais Vendidas
@@ -26,11 +28,12 @@ JOIN
 JOIN 
     loja.action_figure af ON ptaf.id_action_figure = af.id
 WHERE 
-    p.data_pedido::timestamp AT TIME ZONE 'UTC' BETWEEN '2024-09-01T00:00:00Z' AND '2024-09-01T23:59:59Z'
+    p.data_pedido::timestamp AT TIME ZONE 'UTC' BETWEEN '2024-09-01T00:00:00Z' AND '2024-09-30T23:59:59Z' -- Ajuste o intervalo conforme necessário
 GROUP BY 
     af.personagem
 ORDER BY 
     total_vendas DESC;
+
 
 
 -- Relatório de Vendas por Período
@@ -46,9 +49,10 @@ JOIN
 JOIN 
     loja.action_figure af ON ptaf.id_action_figure = af.id
 WHERE 
-    p.data_pedido::timestamp AT TIME ZONE 'UTC' BETWEEN '2024-09-01T00:00:00Z' AND '2024-09-01T23:59:59Z'
+    p.data_pedido::timestamp AT TIME ZONE 'UTC' BETWEEN '2024-09-01T00:00:00Z' AND '2024-09-30T23:59:59Z' -- Ajuste o intervalo conforme necessário
 ORDER BY 
     p.data_pedido, af.personagem;
+
 
 -- script para visualizar a relação entre cliente e endereço
 SELECT 

@@ -60,11 +60,10 @@ public class PedidoTemActionFigureRepository {
         BigDecimal preco = jdbcTemplate.queryForObject(sqlPreco, new Object[]{pedidoTemActionFigure.getIdActionFigure()}, BigDecimal.class);
 
         pedidoTemActionFigure.setValorUnitario(preco);
-        pedidoTemActionFigure.setSubtotal(preco.multiply(new BigDecimal(pedidoTemActionFigure.getPedidoQuantidade())));
 
-        String sql = "INSERT INTO loja.pedido_tem_action_figure (id_pedido, id_action_figure, pedido_quantidade, valor_unitario, subtotal) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO loja.pedido_tem_action_figure (id_pedido, id_action_figure, pedido_quantidade, valor_unitario) VALUES (?, ?, ?, ?)";
         jdbcTemplate.update(sql, pedidoTemActionFigure.getIdPedido(), pedidoTemActionFigure.getIdActionFigure(),
-                pedidoTemActionFigure.getPedidoQuantidade(), pedidoTemActionFigure.getValorUnitario(), pedidoTemActionFigure.getSubtotal());
+                pedidoTemActionFigure.getPedidoQuantidade(), pedidoTemActionFigure.getValorUnitario());
 
         return pedidoTemActionFigure;
     }

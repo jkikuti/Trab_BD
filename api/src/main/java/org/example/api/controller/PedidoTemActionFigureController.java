@@ -6,8 +6,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.math.BigDecimal;
+import java.util.List;
 
 @RestController
 @RequestMapping("/pedido-action-figure")
@@ -32,6 +32,15 @@ public class PedidoTemActionFigureController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
         return ResponseEntity.ok(associacao);
+    }
+
+    @GetMapping("/pedido/{idPedido}")
+    public ResponseEntity<List<PedidoTemActionFigure>> getItemsByPedidoId(@PathVariable Integer idPedido) {
+        List<PedidoTemActionFigure> itens = pedidoTemActionFigureRepository.findAllByPedidoId(idPedido);
+        if (itens.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+        return ResponseEntity.ok(itens);
     }
 
     @PostMapping
@@ -63,7 +72,6 @@ public class PedidoTemActionFigureController {
         pedidoTemActionFigureRepository.update(itemExistente);
         return ResponseEntity.ok(itemExistente);
     }
-
 
     @DeleteMapping("/{idPedido}/{idActionFigure}")
     public ResponseEntity<Void> delete(@PathVariable Integer idPedido, @PathVariable Integer idActionFigure) {
