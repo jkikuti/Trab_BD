@@ -28,7 +28,7 @@ JOIN
 JOIN 
     loja.action_figure af ON ptaf.id_action_figure = af.id
 WHERE 
-    p.data_pedido::timestamp AT TIME ZONE 'UTC' BETWEEN '2024-09-01T00:00:00Z' AND '2024-09-30T23:59:59Z' -- Ajuste o intervalo conforme necessário
+    p.data_pedido::timestamp AT TIME ZONE 'UTC' BETWEEN '2024-09-01T00:00:00Z' AND '2024-09-30T23:59:59Z'
 GROUP BY 
     af.personagem
 ORDER BY 
@@ -49,7 +49,7 @@ JOIN
 JOIN 
     loja.action_figure af ON ptaf.id_action_figure = af.id
 WHERE 
-    p.data_pedido::timestamp AT TIME ZONE 'UTC' BETWEEN '2024-09-01T00:00:00Z' AND '2024-09-30T23:59:59Z' -- Ajuste o intervalo conforme necessário
+    p.data_pedido::timestamp AT TIME ZONE 'UTC' BETWEEN '2024-09-01T00:00:00Z' AND '2024-09-30T23:59:59Z'
 ORDER BY 
     p.data_pedido, af.personagem;
 
