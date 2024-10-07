@@ -50,6 +50,19 @@ public class ClienteRepository {
         jdbcTemplate.update(sql, id);
     }
 
+    public Cliente findByEmail(String email) {
+        String sql = "SELECT * FROM loja.cliente WHERE email = ?";
+        return jdbcTemplate.queryForObject(sql, new Object[]{email}, (rs, rowNum) -> {
+            Cliente cliente = new Cliente();
+            cliente.setId(rs.getInt("id"));
+            cliente.setNome(rs.getString("nome"));
+            cliente.setEmail(rs.getString("email"));
+            cliente.setSenha(rs.getString("senha"));
+            cliente.setCpf(rs.getString("cpf"));
+            return cliente;
+        });
+    }
+
     private static class ClienteRowMapper implements RowMapper<Cliente> {
         @Override
         public Cliente mapRow(ResultSet rs, int rowNum) throws SQLException {
